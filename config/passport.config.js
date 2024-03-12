@@ -5,6 +5,7 @@ const LocalStrategy = require('passport-local').Strategy;
 const { findUserByEmail, findUserByGoogleId } = require('../queries/user.queries')
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const util = require('util')
+require('dotenv').config();
 
 app.use(passport.initialize());
 app.use(passport.session());
