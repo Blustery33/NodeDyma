@@ -1,0 +1,34 @@
+<html lang="fr">
+<head>
+    <title>Mon title</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+<body>
+<div class="container-fluid">
+    <div
+            class="d-flex flex-column align-items-center justify-content-center w-100"
+            style="height: 100vh"
+    >
+        <h1>Liste des chapitres</h1>
+        <div class="d-flex flex-row">
+            <% if (chapter) { %>
+                <div class="card me-4" style="width: 18rem">
+                    <div class="card-body">
+                        <h4 class="card-title"><%= chapter.title %></h4>
+                        <p class="card-text"><%= chapter %></p>
+                        <a
+                                href="/chapters/delete/<%= chapter._id %>"
+                                class="btn btn-danger"
+                        >Delete</a
+                        >
+                    </div>
+                </div>
+            <% } %>
+        </div>
+        <div class="mt-4">
+            <a href="/chapters" class="btn btn-primary">Retour</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

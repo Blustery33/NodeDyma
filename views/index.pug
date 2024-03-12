@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+html
+    head
+    body
+        h1 hello world
+        div(class='test')
+            p(style="color:red; background: purple;") je suis dans la div
+        div.container
+            .content
+                p #{name}
+                p= name
+                if authenticated
+                    p je suis co
+                else
+                    p je suis pas co
+                case friends
+                    when 0
+                        span you have no friend
+                    when 1
+                        span you have one friend
+                    default
+                        span you have #{ friends } friends
+                each product in products
+                    .produit
+                        h4= product.title
+                        p #{ product.content }
+        style.
+            .test {
+                color: green;
+            }
+        script.
+            console.log('hello')
+        - for (var x = 0; x < 5; x++)
+          li item
