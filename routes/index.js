@@ -3,6 +3,10 @@ const userRoutes = require('./user.routes');
 const authRoutes = require('./auth.routes');
 const router = require('express').Router();
 const { ensureAuthenticated } = require('../config/security.config');
+const multer = require('multer');
+const path = require("path");
+const upload = multer({ dest: path.join(__dirname, '..', 'upload') });
+const util = require('util')
 
 
 //router.use('/chapters', chapterRoutes)
@@ -18,12 +22,20 @@ router.get('/protected', ensureAuthenticated, (req,res) =>{
     res.render('protected');
 })
 
-router.get('/', (req, res) => {
-
-    console.log(req.cookies);
-
+router.get('/authenticed', (req, res) => {
     res.render('auth', {user: req.user});
 })
+
+router.get('/', (req,res) => {
+    res.render('home');
+})
+
+router.post('/file', upload.array('avatar', 2), (req,res) => {
+    console.log(util.inspect(req.body, { compact: false, depth: 5, breakLength: 80, color: true}))
+    console.log(util.inspect(req.files, { compact: false, depth: 5, breakLength: 80, color: true}))
+    res.end();
+})
+
 
 
 

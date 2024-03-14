@@ -6,13 +6,13 @@ exports.sessionNew = (req, res, next) => {
 exports.sessionCreate = (req, res, next) => {
     passport.authenticate('local',(err, user, info) => {
         if (err) {
-            next(e)
+            next(err)
         }else if (!user) {
             res.render('signin', { error: info.message })
         } else {
             req.login(user, (err) => {
                 if(err) {
-                    next(e)
+                    next(err)
                 } else {
                     res.redirect('/')
                 }

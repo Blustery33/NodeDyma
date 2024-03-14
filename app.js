@@ -7,6 +7,8 @@ require('./database/index')
 const router = require('./routes')
 const errorHandler = require('errorhandler')
 const cookieParser = require('cookie-parser')
+const util = require('util')
+
 
 exports.app = app;
 require('./config/session.config')
@@ -56,31 +58,6 @@ app.use(express.urlencoded({ extended : true }))
 app.use(morgan('tiny'));
 // END
 
-// app.param('userId', (req,res,next, value, name) => {
-//     console.log({
-//         value,
-//         name
-//     })
-//     next();
-// })
-//
-// app.get('/user/:userId', (req,res) => {
-//     //console.log(req.params)
-//     res.end();
-// })
-
-
-// app.route('/user/:userId')
-//     .get((req,res) => {
-//         res.send('user')
-//     })
-//     .put((req,res) => {
-//             res.send('user');
-//     })
-//     .delete((req,res) => {
-//         res.send('user');
-//     })
-
 
 if (process.env.NODE_ENV === 'development') {
     app.use(errorHandler());
@@ -95,6 +72,8 @@ app.use((err, req, res, next) => {
             }
         });
     }
+    console.log(util.inspect(err, { compact: false, depth: 5, breakLength: 80, color: true}))
+    re.status(500).redirect('/')
 });
 
 app.use(cookieParser())
