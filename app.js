@@ -45,6 +45,9 @@ const isAuthenticated = (req, res, next) => {
 // middleware static pour toutes les images du dossier public
 app.use(express.static(path.join(__dirname, 'public')))
 // END //
+// middleware static pour toutes les images uplaod
+app.use(express.static(path.join(__dirname, 'upload')))
+// END //
 
 // Function d'express qui permet de récup le BODY(JSON) du POST et de le transformer en un OBJET //
 app.use(express.json());

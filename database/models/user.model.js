@@ -8,7 +8,8 @@ const userSchema = schema({
         password : { type: String },
         googleId: { type: String}
     },
-    username : String
+    username : String,
+    avatar : { type: String },
 });
 
 // Hash du password

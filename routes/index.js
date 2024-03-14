@@ -1,17 +1,17 @@
 const chapterRoutes = require('./chapters');
 const userRoutes = require('./user.routes');
 const authRoutes = require('./auth.routes');
+const uploadFileRoutes = require('./file.routes');
 const router = require('express').Router();
 const { ensureAuthenticated } = require('../config/security.config');
-const multer = require('multer');
-const path = require("path");
-const upload = multer({ dest: path.join(__dirname, '..', 'upload') });
-const util = require('util')
+const User = require('../database/models/user.model')
+
 
 
 //router.use('/chapters', chapterRoutes)
 router.use('/users', userRoutes);
 router.use('/auth', authRoutes);
+router.use('/upload-file', uploadFileRoutes);
 
 router.get('/chap', (req,res) =>{
     res.redirect('/chapters')
@@ -26,15 +26,18 @@ router.get('/authenticed', (req, res) => {
     res.render('auth', {user: req.user});
 })
 
-router.get('/', (req,res) => {
-    res.render('home');
+router.get('/', async (req,res, next) => {
+    try{
+        const users = await User.find({}).exec()
+        const user = users && users.length ? users[1] : null;
+        res.render('home', {user});
+    } catch(e){
+        next(e)
+    }
+
+
 })
 
-router.post('/file', upload.array('avatar', 2), (req,res) => {
-    console.log(util.inspect(req.body, { compact: false, depth: 5, breakLength: 80, color: true}))
-    console.log(util.inspect(req.files, { compact: false, depth: 5, breakLength: 80, color: true}))
-    res.end();
-})
 
 
 
